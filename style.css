@@ -1,0 +1,14 @@
+#board {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: center;
+}
+
+.value {
+  color: BLACK;
+  font-size: 100px;
+  border: solid;
+  text-align: center;
+  width: 200px;
+  height: 100px;
+}

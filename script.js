@@ -1,45 +1,38 @@
-let myLibrary = [];
+let gameBoard = ["", "", "", "", "", "", "", "", ""];
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.info = function () {
-    return title + " by " + author + ". " + pages + " pages. " + read;
-  };
+function makeboard() {
+  for (i = 0; i < gameBoard.length; i++) {
+    let board = document.querySelector("#board");
+
+    let value = document.createElement("div");
+    value.className = "value";
+    value.id = i;
+    value.setAttribute("onclick", "insertValue(this)");
+    value.textContent = gameBoard[i];
+
+    board.appendChild(value);
+  }
 }
 
-function addBookToLibrary(title, author, pages, read) {
-  myLibrary.push(new Book(title, author, pages, read));
+let turn = 1;
+function insertValue(elmnt) {
+  if (turn % 2 == 0) {
+    value = "X";
+  } else {
+    value = "O";
+  }
+  turn++;
+  gameBoard[elmnt.id] = value;
+
+  elmnt.textContent = value;
+  elmnt.removeAttribute("onClick");
+
+  checkingWinner();
 }
 
-function addForm() {
-  let inputbook = document.getElementById("inputbook");
-  var f = document.createElement("form");
-  f.setAttribute("method", "post");
-  f.setAttribute("action", "submit.php");
-
-  var inputTitle = document.createElement("input"); //input element, text
-  inputTitle.setAttribute("type", "text");
-  inputTitle.setAttribute("name", "username");
-  inputTitle.setAttribute("placeholder", "Title");
-
-  var inputAuthor = document.createElement("input"); //input element, text
-  inputTitle.setAttribute("type", "text");
-  inputTitle.setAttribute("name", "username");
-  inputTitle.setAttribute("placeholder", "inputAuthor");
-
-  var s = document.createElement("input"); //input element, Submit button
-  s.setAttribute("type", "submit");
-  s.setAttribute("value", "Submit");
-
-  f.appendChild(inputTitle);
-  f.appendChild(inputAuthor);
-  f.appendChild(s);
-
-  inputbook.append(f);
+function checkingWinner() {
+  if (gameBoard[0] == "O" && gameBoard[1] == "O" && gameBoard[2] == "O") {
+    console.log("Win");
+  }
 }
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, "not read yet");
-
-console.log(myLibrary);
+makeboard();
